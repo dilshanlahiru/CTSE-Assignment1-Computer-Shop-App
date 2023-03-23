@@ -3,7 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
-export default function ItemsShop() {
+export default function FeedbackForm() {
   const navigation = useNavigation();
   return (
     <View>
@@ -15,7 +15,7 @@ export default function ItemsShop() {
           backgroundColor: "#3669C9",
           alignItems: "center",
         }}
-        onPress={() => navigation.navigate("Add Items")}
+        onPress={() => navigation.navigate("Add ")}
       >
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Ionicons name="add-circle" size={30} color="#fff" />
