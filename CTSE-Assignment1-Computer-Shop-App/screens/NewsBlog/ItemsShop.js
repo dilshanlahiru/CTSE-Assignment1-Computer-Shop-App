@@ -1,38 +1,58 @@
-import { StyleSheet, Text, TouchableOpacity, View, Button } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import { View, Text, Button, Image } from 'react-native'
+import React, { useEffect, useState }  from 'react'
+import * as ImagePicker from 'expo-image-picker';
+import storage from '@react-native-firebase/storage';
+const ImagePikker = () => {
+    const [hasGalleryPermission, setGallryPermission] = useState(null);
+    const [image, setImage] = useState(null);
+    useEffect(()=>{
+        (async()=>{
+            const galleryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            setGallryPermission(galleryStatus.status === 'granted')
+        })();
+    },[]);
 
-export default function ItemsShop() {
-  const navigation = useNavigation();
+    const pickImage = async()=>{
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes:ImagePicker.MediaTypeOptions.Images,
+            allowsEditing:true,
+            aspect:[4,3],
+            quality:1,
+        });
+        console.log(result);
+        // methana aru dala thiyenne if (!result.cancelled) double L
+        if (!result.canceled){
+            setImage(result.uri);
+        }
+    };
+
+    const SubmitPost =async()=>{
+        const uplordUri= image;
+        let filename = uplordUri.substring(uplordUri.lastIndexOf('/') + 1);
+        console.log("hi hi 22")
+         try {
+            await storage().ref(filename).putFile(uplordUri);
+         }catch(e){
+            console.log(e);
+         }
+    }
+
+    if (hasGalleryPermission===false){
+        return <Text>No Access To Internal Storage</Text>
+    }
+
   return (
-    <View>
-      <TouchableOpacity
-        style={{
-          margin: 10,
-          borderRadius: 10,
-          paddingVertical: 10,
-          backgroundColor: "#3669C9",
-          alignItems: "center",
-        }}
-        onPress={() => navigation.navigate("Add Items")}
-      >
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Ionicons name="add-circle" size={30} color="#fff" />
-          <Text
-            style={{
-              color: "#fff",
-              marginLeft: 10,
-              fontSize: 20,
-              fontWeight: "bold",
-            }}
-          >
-            new blog
-          </Text>
-        </View>
-      </TouchableOpacity>
+    <View style = {{flex:1, justifyContent:'center'}}>
+      <Button title='Pick Image' onPress={()=>pickImage()} style ={{marginTop:30}}
+      
+      ></Button>
+      {image && <Image source={{uri:image}} style={{flex:1/2}}/>}
+      <Button title='submit' onPress={()=>SubmitPost()} 
+    //   style ={{marginTop:30}}
+      
+      ></Button>
     </View>
-  );
+  )
 }
 
-const styles = StyleSheet.create({});
+export default ImagePikker
