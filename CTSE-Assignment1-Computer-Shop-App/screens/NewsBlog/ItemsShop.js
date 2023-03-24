@@ -27,7 +27,7 @@ export default function ItemsShop() {
               fontWeight: "bold",
             }}
           >
-            ADD ITEMS
+            new blog
           </Text>
         </View>
       </TouchableOpacity>
