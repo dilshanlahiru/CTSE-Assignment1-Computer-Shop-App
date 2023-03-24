@@ -27,7 +27,7 @@ export default function ItemsShop() {
               fontWeight: "bold",
             }}
           >
-            ADD ITEMS
+            ADD ITEMS to advertiestment
           </Text>
         </View>
       </TouchableOpacity>
