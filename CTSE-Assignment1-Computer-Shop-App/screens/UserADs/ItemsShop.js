@@ -57,6 +57,38 @@ export default function FeedbackForm() {
               fontWeight: "bold",
             }}
           >
+
+             <View>
+      <TouchableOpacity
+        style={{
+          margin: 10,
+          borderRadius: 10,
+          paddingVertical: 10,
+          backgroundColor: "#3669C9",
+          alignItems: "center",
+        }}
+        onPress={() => navigation.navigate("Add ")}
+      >
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Ionicons name="add-circle" size={30} color="#fff" />
+          <Text
+            style={{
+              color: "#fff",
+              marginLeft: 10,
+              fontSize: 20,
+              fontWeight: "bold",
+            }}
+          >
+            ADD ITEMS
+          </Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+
+
+
+
+
             ADD ITEMS
           </Text>
         </View>
